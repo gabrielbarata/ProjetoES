@@ -9,12 +9,12 @@
   {% block botaoadd %}
   <div>
     <div
-    style="
-    display: flex;
-    flex-direction: row;
-    align-items: baseline;
-    margin-bottom: 30px;
-  "
+      style="
+        display: flex;
+        flex-direction: row;
+        align-items: baseline;
+        margin-bottom: 30px;
+      "
     >
       <form
         enctype="multipart/form-data"
@@ -32,53 +32,53 @@
           id="id_imagefile"
           data-preview-file-type="text"
         />
-        <label class="custom-file-label" for="id_imagefile" id="label_file">
-          {% if filename %}
-          {{filename}}
-          {% else %}
-          arquivo
-          {% endif %}  
+        <label
+          class="custom-file-label"
+          for="id_imagefile"
+          id="label_file"
+          style="margin-right: 12px;"
+        >
+          {% if filename %} {{filename}} {% else %} arquivo {% endif %}
         </label>
       </form>
-        <div
-          style="
-            display: flex;
-            flex-direction: row;
-            align-items: baseline;
-            justify-content: space-between;
-            gap: 50px;
-            margin-left: 120px;
-          "
-        >
-          <div>
-            <button class="btn btn-secundary" onclick="exibescript()">
-              <i class="fas fa-file-code f15c fa-3x"></i>
-            </button>
-          </div>
-          <div>
-            <button class="btn btn-secundary" onclick="exibeconteudo()">
-              <i class="fas fa-file-alt f15c fa-3x"></i>
-            </button>
-          </div>
-          <div>
-            <form method="post" action="">
-              {% csrf_token %}
-              <button
-                class="btn btn-secundary"
-                type="submit"
-                name="historico"
-                value="historico"
-                href="#"
-              >
-                <span class="fa-stack fa-2x">
-                  <i class="fas fa-circle fa-stack-2x"></i>
-                  <i class="fas fa-file-alt fa-stack-1x fa-inverse"></i>
-                </span>
-              </button>
-            </form>
-          </div>
+      <div
+        style="
+          display: flex;
+          flex-direction: row;
+          align-items: baseline;
+          justify-content: space-between;
+          gap: 50px;
+          margin-left: 120px;
+        "
+      >
+        <div>
+          <button class="btn btn-secundary" onclick="exibescript()">
+            <i class="fas fa-file-code f15c fa-3x"></i>
+          </button>
         </div>
-     
+        <div>
+          <button class="btn btn-secundary" onclick="exibeconteudo()">
+            <i class="fas fa-file-alt f15c fa-3x"></i>
+          </button>
+        </div>
+        <div>
+          <form method="post" action="">
+            {% csrf_token %}
+            <button
+              class="btn btn-secundary"
+              type="submit"
+              name="historico"
+              value="historico"
+              href="#"
+            >
+              <span class="fa-stack fa-2x">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fas fa-file-alt fa-stack-1x fa-inverse"></i>
+              </span>
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
   <script
