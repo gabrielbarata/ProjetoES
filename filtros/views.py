@@ -6,10 +6,12 @@ from django.views.generic import TemplateView
 from .models import Script
 
 from django.urls import reverse_lazy
+from django import forms
 
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
+from django.shortcuts import render,redirect
 
 from django.conf import settings
 
@@ -18,20 +20,44 @@ import math
 import cv2
 
 
-class ScriptCreate(CreateView):
-    model = Script
-    fields = ['categoria', 'nome', 'codigo']
-    template_name = 'filtros/form.html'
-    success_url = reverse_lazy('inicio')
+class ScriptCreate(forms.ModelForm):
+    class Meta:
+        model = Script
+        fields = ['categoria', 'nome', 'codigo']
+    
+    # template_name = 'filtros/form.html'
+    # success_url = reverse_lazy('inicio')
 
-    def get_context_data(self, *args, **kwargs):
+    # def get_context_data(self, *args, **kwargs):
 
-        context = super().get_context_data(*args, **kwargs)
+    #     context = super().get_context_data(*args, **kwargs)
 
-        context['titulo'] = "Inserir Filtro"
-        context['botao'] = "Cadastrar"
+    #     context['titulo'] = "Inserir Filtro"
+    #     context['botao'] = "Cadastrar"
 
-        return context
+    #     return context
+
+
+def showscript(request):
+    form= ScriptCreate(request.POST or None, request.FILES or None)
+    if form.is_valid():
+        data=form.cleaned_data
+        if len(obj:=Script.objects.filter(nome=data['nome'])):
+            scpt=Script()
+            scpt.pk=obj[0].pk
+            scpt.nome=data['nome']
+            scpt.categoria=data['categoria']
+            scpt.codigo=data['codigo']
+            scpt.save()
+        else:
+            form.save()
+        return redirect('inicio')
+    context = {
+        'titulo': "Inserir Filtro",
+        'botao': "Cadastrar",
+        'form': ScriptCreate
+    }
+    return render(request, 'filtros/form.html', context)
 
 
 # class TesteCreate(CreateView):
@@ -50,20 +76,20 @@ class ScriptCreate(CreateView):
 #         return context
 
 
-class ScriptUpdate(UpdateView):
-    model = Script
-    fields = ['categoria', 'nome', 'codigo']
-    template_name = 'filtros/form.html'
-    success_url = reverse_lazy('inicio')
+# class ScriptUpdate(UpdateView):
+#     model = Script
+#     fields = ['categoria', 'nome', 'codigo']
+#     template_name = 'filtros/form.html'
+#     success_url = reverse_lazy('inicio')
 
-    def get_context_data(self, *args, **kwargs):
+#     def get_context_data(self, *args, **kwargs):
 
-        context = super().get_context_data(*args, **kwargs)
+#         context = super().get_context_data(*args, **kwargs)
 
-        context['titulo'] = "Editar Filtro"
-        context['botao'] = "Atualizar"
+#         context['titulo'] = "Editar Filtro"
+#         context['botao'] = "Atualizar"
 
-        return context
+#         return context
 
 
 # class TesteUpdate(UpdateView):
@@ -107,4 +133,3 @@ class ScriptUpdate(UpdateView):
 #         context['resultado_img'] = url_out
 
 #         return context
-

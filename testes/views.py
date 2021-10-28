@@ -52,16 +52,16 @@ def historico():
 
 def cont(context):
     categorias=['imagem','limiarização','morfologia']
-    filtros_sep=[[],[],[],[]]
+    filtros_sep=[[] for i in range(len(categorias)+1)]
     filtros=[[i.nome,i.pk,i.categoria] for i in Script.objects.filter()]
     for i in filtros:
         if (low:=i[2].lower()) in  categorias:
             filtros_sep[categorias.index(low)].append(i)
         else:
-            filtros_sep[3].append(i)
+            filtros_sep[len(categorias)].append(i)
     for count, cat in enumerate(categorias):
         context[cat]=filtros_sep[count]
-    context['outros']=filtros_sep[3]
+    context['outros']=filtros_sep[len(categorias)]
     context['codigo']=SKPT(last.code_pk).codigo if (last:=Result.objects.last()) else ''
 
 
