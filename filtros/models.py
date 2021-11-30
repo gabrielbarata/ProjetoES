@@ -5,7 +5,7 @@ from django.db import models
 
 
 class Script(models.Model):
-    help_text='''escolha entre: imagem, limiarização, morfologia ou alguma outra personalizada'''
+    help_text='''Escolha entre: Imagem, Limiarização, Morfologia ou alguma outra personalizada'''
     categoria = models.CharField(max_length=50, help_text=help_text)
     nome = models.CharField(max_length=50)
     help_text='''image_in e image_out são arrays numpy.
